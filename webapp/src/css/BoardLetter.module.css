@@ -1,0 +1,23 @@
+.BoardLetter{
+    width: 200px;
+    height: 200px;
+    color: red;
+    font-size: 150px;
+    border: 10px red solid;
+    text-align: center;
+    cursor: pointer;
+}
+
+.default{
+    background-color: inherit;
+}
+
+.right_place{
+    background-color: green;
+}
+.right_letter{
+    background-color: blue;
+}
+.wrong_letter{
+    background-color: grey;
+}
