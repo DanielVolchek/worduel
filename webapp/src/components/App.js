@@ -4,7 +4,7 @@ import classes from "../css/app.module.css"
 class App extends React.Component {
     render() {
         return (
-            <div style={{display: "flex", justifyContent: "space-between"}}>
+            <div className={classes.App}>
                 <Wordle />
                 <Wordle display={true}/>
             </div>

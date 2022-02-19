@@ -8,12 +8,14 @@ class GameBoard extends React.Component {
                 key={bEl.key} row={bEl.row} col={bEl.col}
                 setTarget={bEl.setTarget} letter={bEl.letter}
                 letterstatus={bEl.letterstatus ?? classes.default}
-
             />
         ))
         return (
-            <div className={classes.GameBoard}>
-                {boardLetters}
+            <div>
+                <h2>{this.props.display ?  "Their" : "Your"} board</h2>
+                <div className = { classes.GameBoard } >
+                    { boardLetters }
+                </div>
             </div>
         )
     }

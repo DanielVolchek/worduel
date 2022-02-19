@@ -131,3 +131,8 @@ body {
 	background: #121213;
     box-sizing: border-box; 
 }
+
+.App{
+	display: flex;
+	justify-content: center;
+}

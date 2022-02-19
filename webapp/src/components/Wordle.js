@@ -129,7 +129,7 @@ class Wordle extends React.Component {
                 {/* <div className={classes.GameBoard}>
                     {this.props.boardElements}
                 </div> */}
-                <GameBoard boardElements={this.state.Board} />
+                <GameBoard boardElements={this.state.Board} display={this.props.display}/>
             </div>
         )
     }

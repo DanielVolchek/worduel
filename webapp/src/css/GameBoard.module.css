@@ -2,7 +2,19 @@
     display: flex;
     margin: auto;
     margin-top: 5%;
-    width: 1200px;
-    height: 1000px;
+    width: 260px;
+    margin-right: 25px;
+    margin-top: 50px;
+    height: 260px;
     flex-wrap: wrap;
+    box-sizing: border-box;
+}
+h2{
+    position: relative;
+    top: 35px; 
+    right: 25px;
+    text-align: center;
+    color: white;
+}
+.GameBoard:nth-child(2){
 }
