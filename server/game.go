@@ -7,13 +7,12 @@ import (
 )
 
 type Player struct {
-	conn         *websocket.Conn
-	invite_link  string
-	word         string
-	Game         *Game
-	opponent     *Player
-	opponent_in  <-chan string
-	opponent_out chan<- string
+	conn        *websocket.Conn
+	invite_link string
+	word        string
+	Game        *Game
+	opponent    *Player
+	io_chan     chan string
 }
 
 type Game struct {
@@ -24,9 +23,8 @@ type Game struct {
 }
 
 func CreatePlayer(conn *websocket.Conn) *Player {
-	opponent_in := make(chan string)
-	opponent_out := make(chan string)
-	return &Player{conn: conn, word: "", opponent_in: opponent_in, opponent_out: opponent_out, Game: nil}
+	io_chan := make(chan string, 1)
+	return &Player{conn: conn, word: "", io_chan: io_chan, Game: nil}
 }
 
 func CreateGame(p1 *Player, p2 *Player) *Game {
@@ -36,24 +34,34 @@ func CreateGame(p1 *Player, p2 *Player) *Game {
 }
 
 func (game *Game) StartGame() {
-	fmt.Println("starting new game")
-	go game.p1.readPlayerLoop(game.p1.opponent_in, game.p1.opponent_out)
-	go game.p2.readPlayerLoop(game.p1.opponent_in, game.p1.opponent_out)
+	fmt.Println("StartGame function called")
+	go game.p1.readPlayerLoop(game.p2.io_chan, game.p1.io_chan)
+	go game.p2.readPlayerLoop(game.p1.io_chan, game.p2.io_chan)
 }
 
-func (player *Player) readPlayerLoop(opponent_in <-chan string, opponent_out chan<- string) {
+// start game
+// send message to opponents channel
+// read message from my channel
+
+func (player *Player) readPlayerLoop(opponent_chan chan<- string, player_chan <-chan string) {
 	(*player).opponent.conn.WriteMessage(websocket.TextMessage, []byte("START_GAME"))
+	fmt.Println("Ready to read message")
 	word, _ := readMSG((*player).conn)
+	fmt.Println("Player word is: " + word)
 	(*player).word = word
-	opponent_out <- word
-	<-opponent_in
+	opponent_chan <- word
+	fmt.Println("Sent message to opponent channel")
+	oppWord := <-player_chan
+	fmt.Println("Received message from opponent channel")
+	fmt.Println("oppWord word is: " + oppWord)
 	(*player).opponent.conn.WriteMessage(websocket.TextMessage, []byte("WORD: "+word))
-	fmt.Println("Starting new game")
+	fmt.Println("Entering readPlayer loop")
 	for {
 		// read a message
 		msg, err := readMSG((*player).conn)
 		if err != nil {
 			(*player).opponent.conn.WriteMessage(websocket.TextMessage, []byte("ERR"))
+			break;
 		}
 		// write to other player
 		(*player).opponent.conn.WriteMessage(websocket.TextMessage, []byte(msg))
