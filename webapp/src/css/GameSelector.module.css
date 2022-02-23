@@ -1,0 +1,38 @@
+.GameSelectorOuter {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.GameSelectorInner {
+	display: flex;
+    padding: 25px;
+	flex-direction: column;
+    align-items: center;
+}
+
+.GameSelectorInner p {
+    font-size: 50px;
+	color: white;
+}
+.gameButton {
+    border: none;
+    padding: 10px;
+    min-width: 500px;
+    background-color: #312244;
+    border-radius: 5px;
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.gameButton:hover{
+    background-color: #3E1F47;
+}
+.publicButton{
+    margin-bottom: 20px; 
+}
+
+.privateButton{
+    margin-top: 20px;
+}

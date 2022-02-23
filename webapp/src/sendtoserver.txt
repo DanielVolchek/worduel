@@ -1,0 +1,6 @@
+1: public/private
+2: word
+3: if private, send generated invite link
+4: wait for START_GAME from server
+5: send each new letter
+6: if SUBMIT call submit on other players board

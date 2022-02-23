@@ -55,6 +55,7 @@ func getMessageFromBuff(msg_buf []byte) (val string) {
 }
 
 func processWSConn(ws_conn *websocket.Conn) error {
+	fmt.Println("processing new connection")
 	gameType, err := readMSG(ws_conn)
 	if err != nil {
 		fmt.Println(err.Error())

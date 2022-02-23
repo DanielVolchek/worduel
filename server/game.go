@@ -54,7 +54,7 @@ func (player *Player) readPlayerLoop(opponent_chan chan<- string, player_chan <-
 	oppWord := <-player_chan
 	fmt.Println("Received message from opponent channel")
 	fmt.Println("oppWord word is: " + oppWord)
-	(*player).opponent.conn.WriteMessage(websocket.TextMessage, []byte("WORD: "+word))
+	(*player).opponent.conn.WriteMessage(websocket.TextMessage, []byte("WORD:"+word))
 	fmt.Println("Entering readPlayer loop")
 	for {
 		// read a message

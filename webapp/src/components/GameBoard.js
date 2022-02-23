@@ -12,7 +12,7 @@ class GameBoard extends React.Component {
         ))
         return (
             <div>
-                <h2>{this.props.display ?  "Their" : "Your"} board</h2>
+                <h2>{!this.props.player ?  "Their" : "Your"} board</h2>
                 <div className = { classes.GameBoard } >
                     { boardLetters }
                 </div>

@@ -6,7 +6,7 @@ import (
 
 const (
 	MSG_LEN   = 20
-	HTTP_PORT = "3000"
+	HTTP_PORT = "8080"
 )
 
 var PlayerQueue []*Player
